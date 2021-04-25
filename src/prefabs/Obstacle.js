@@ -6,6 +6,7 @@ class Obstacle extends Phaser.GameObjects.Sprite {
         //Procedural fields.
         this.lane = lane; //Which lane it exists in.
         this.movement_Speed = movespeed; //Horizontal scroll speed.
+        this.Scene = scene;
 
         //Hard-coded fields.
         //None atm.
@@ -22,10 +23,13 @@ class Obstacle extends Phaser.GameObjects.Sprite {
     }
 
 
-    update() {
+    update(speed) {
         //Continuously move to the left.
-        this.x -= this.movement_Speed;
+        if(!this.scene.GameOver) {
+            this.x -= speed;
+        }
     }
+
 
     //Returns true if this is intersecting with obj2.
     //Returns false if this is NOT intersecting with obj2.

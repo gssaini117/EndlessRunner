@@ -37,7 +37,7 @@ class Player extends Phaser.GameObjects.Sprite {
         // Lane 2: y = 325
         // Lane 3: y = 450
         this.y = 200 + ((this.lane - 1) * 125); //multiply by the lane sizes;
-
+        this.setDepth(this.lane);
     }
 
     //Returns true if this is intersecting with obj2.

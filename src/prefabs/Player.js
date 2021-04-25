@@ -1,5 +1,5 @@
 //Player prefabs
-class Player extends phaser.gameObjects {
+class Player extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
 
@@ -18,18 +18,25 @@ class Player extends phaser.gameObjects {
     update() {
         //Detecting inputs.
         if(Phaser.Input.Keyboard.JustDown(keyW) &&
+            this.lane > 1) 
+        {   
+            this.lane--
+            console.log("W has been pressed");
+            console.log(this.lane);
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyS) &&
             this.lane < 3) 
         {
             this.lane++;
-        }
-        if(Phaser.Input.Keyboard.JustDown(keyS) &&
-            this.lane > 1) 
-        {
-            this.lane--;
+            console.log("S has been pressed");
+            console.log(this.lane);
         }
 
         //Updating the player's Y matches the lane they're in.
-        this.y = this.lane //multiply by the lane sizes;
+        // Lane 1: y = 200
+        // Lane 2: y = 325
+        // Lane 3: y = 450
+        this.y = 200 + ((this.lane - 1) * 125); //multiply by the lane sizes;
 
     }
 

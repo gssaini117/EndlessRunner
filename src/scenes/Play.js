@@ -23,7 +23,7 @@ class Play extends Phaser.Scene {
             {frameWidth: 128, frameHeight: 256, startFrame: 0, endFrame: 7}
         );
         this.load.spritesheet('Zombie_Hand', './assets/zombie_Hand.png',
-            {frameWidth: 128, frameHeight: 256, startFrame: 0, endFrame: 5}
+            {frameWidth: 256, frameHeight: 256, startFrame: 0, endFrame: 5}
         );
     }
 
@@ -33,7 +33,7 @@ class Play extends Phaser.Scene {
         //======================================================================
         //Background config
         this.background = this.add.tileSprite(
-            0, 0, 1024, 576, 'starfield'
+            0, 0, 1024, 576, 'Background1'
         ).setOrigin(0, 0).setDepth(0);
 
         //Animation config
@@ -61,10 +61,10 @@ class Play extends Phaser.Scene {
         // Technical
         //======================================================================
         // Group for storing obstacles.
-        this.Obstacles = new phaser.GameObjects.Group(this);
+        this.Obstacles = new Phaser.GameObjects.Group(this);
         // Spawning obstacles.
         this.SpawnCooldown = false; // Can't spawn obstacles if true.
-        this.BASE_SPAWN_RATE = 2; //Fixed base spawn delay in seconds.
+        this.BASE_SPAWN_RATE = 2000; //Fixed base spawn delay in seconds.
 
         // Timer / Score
         this.Time = 0; // How long the player has survived for.
@@ -109,7 +109,7 @@ class Play extends Phaser.Scene {
         // Starting game
         //======================================================================
         this.Player = new Player(
-            this, game.config.width/6, game.config.height/4, 'Player', 0,
+            this, game.config.width/4, 325, 'Player', 0,
         ).setDepth(5).setOrigin(0.5, 0.5).play('Player_Loop');
     }
 
@@ -118,7 +118,10 @@ class Play extends Phaser.Scene {
         // Updating stats
         //======================================================================
         //Updating background.
-        this.background.tilePositionX -= 4;
+        this.background.tilePositionX += 4;
+
+        //Updating player
+        this.Player.update();
 
         //Updating time ui.
         this.Text_Stats.setText("Time survived: " + this.Time + " seconds");
@@ -127,8 +130,8 @@ class Play extends Phaser.Scene {
         if(!this.TimeCooldown) {
             this.TimeCooldown = true;
             setTimeout(() => { //Delaying score update.
-                this.Time += 1;
-                this.TimeCooldown = true;
+                this.Time++;
+                this.TimeCooldown = false;
             }, 1000);
         }
 
@@ -150,8 +153,7 @@ class Play extends Phaser.Scene {
             Obstacle.update(); //Update
 
             if(Obstacle.checkCollision(Temp.Player)) { //Collision
-                console.log('Player has been hit!');
-                Temp.Monsters.remove(Obstacle, true, true);
+                Temp.Obstacles.remove(Obstacle, true, true);
             }
         });
 
@@ -166,34 +168,41 @@ class Play extends Phaser.Scene {
         let texture = '';
         let AnimationID = '';
         let isAnimated = false;
+        let selection = Math.floor(Math.random() * 6);
 
         //Selecting obstacle texture.
-        switch(Math.floor(Math.random() * 6)) { // 0 to 5
+        switch(selection) { // 0 to 5
             case 0: // Crate
                 texture = 'Crate';
+                break;
             case 1: // Blockade
                 texture = 'Blockade';
+                break;
             case 2: // Bin
                 texture = 'Bin';
+                break;
             case 3: // Chibi
                 texture = 'Zombie_Chibi';
                 AnimationID = 'Chibi_Loop';
                 isAnimated = true;  
+                break;
             case 4: // Scary
                 texture = 'Zombie_Scary';
                 AnimationID = 'Scary_Loop';
                 isAnimated = true;  
+                break;
             case 5: // Hand
                 texture = 'Zombie_Hand';
                 AnimationID = 'Hand_Loop';
                 isAnimated = true;  
+                break;
         }
         //Creation
         let obstacle = new Obstacle (this, game.config.width*1.2, 
-            game.config.height / 2,
+            200 + ((lane - 1) * 125),
             texture, 0, lane,
             4
-        ).setOrigin(0.5, 1).setDepth(lane);
+        ).setOrigin(0.5, 0.5).setDepth(lane);
 
         if(isAnimated) { //Checking for animation
             obstacle.play(AnimationID);

@@ -1,5 +1,5 @@
 //Obstacle prefabs
-class Obstacle extends phaser.gameObjects {
+class Obstacle extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame, lane, movespeed) {
         super(scene, x, y, texture, frame);
 
@@ -9,6 +9,13 @@ class Obstacle extends phaser.gameObjects {
 
         //Hard-coded fields.
         //None atm.
+
+        //Flipping specific sprites
+        if(texture == 'Zombie_Chibi' ||
+            texture == 'Zombie_Scary') 
+        {
+            this.flipX = true;
+        }
 
         //Adding object to scene.
         scene.add.existing(this);

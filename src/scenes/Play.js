@@ -38,7 +38,7 @@ class Play extends Phaser.Scene {
 
         //Animation config
         this.anims.create({ //Player
-            key: 'Player_Loop', frameRate: 6, repeat: -1,
+            key: 'Player_Loop', frameRate: 8, repeat: -1,
             frames: this.anims.generateFrameNumbers('Player', { start: 0, end: 5, first: 0}),
         });
         this.anims.create({ //Zombie-Chibi
@@ -82,9 +82,9 @@ class Play extends Phaser.Scene {
         // Gui
         //======================================================================
         //Upper score box
-        this.Text_Box = this.add.rectangle(game.config.width/8, 5, 
-            game.config.width/2, 
-            game.config.height/16, 
+        this.Text_Box = this.add.rectangle(game.config.width/2, 0, 
+            game.config.width, 
+            game.config.height/14, 
             0xF6DF7A
         ).setOrigin(0.5, 0).setDepth(9);
         let textConfig = {
@@ -94,8 +94,7 @@ class Play extends Phaser.Scene {
             color: '#000000',
             align: 'center',
             padding: {
-            top: 10,
-            bottom: 10,
+            top: 5,
             },
         }
         this.Text_Stats = this.add.text(
@@ -117,30 +116,34 @@ class Play extends Phaser.Scene {
         //======================================================================
         // Updating stats
         //======================================================================
-        //Updating background.
-        this.background.tilePositionX += 4;
+        if(!this.GameOver) {
+            //Updating background.
+            this.background.tilePositionX += 4;
 
-        //Updating player
-        this.Player.update();
+            //Updating player
+            this.Player.update();
 
-        //Updating time ui.
-        this.Text_Stats.setText("Time survived: " + this.Time + " seconds");
-        
-        //Updating timer.
-        if(!this.TimeCooldown) {
-            this.TimeCooldown = true;
-            setTimeout(() => { //Delaying score update.
-                this.Time++;
-                this.TimeCooldown = false;
-            }, 1000);
-        }
+            //Updating time ui.
+            this.Text_Stats.setText("Time survived: " + this.Time + " seconds");
+            
+            //Updating timer.
+            if(!this.TimeCooldown) {
+                this.TimeCooldown = true;
+                setTimeout(() => { //Delaying score update.
+                    this.Time++;
+                    this.TimeCooldown = false;
+                }, 1000);
+            }
 
-        //Spawning obstacle.
-        if(!this.SpawnCooldown) {
-            this.SpawnCooldown = true;
-            setTimeout(() => { //Delaying spawn.
-                this.spawnObstacle();
-            }, this.BASE_SPAWN_RATE);
+            //Spawning obstacle.
+            if(!this.SpawnCooldown &&
+                !this.GameOver    
+            ) {
+                this.SpawnCooldown = true;
+                setTimeout(() => { //Delaying spawn.
+                    this.spawnObstacle();
+                }, this.BASE_SPAWN_RATE);
+            }
         }
 
         //======================================================================
@@ -153,13 +156,18 @@ class Play extends Phaser.Scene {
             Obstacle.update(); //Update
 
             if(Obstacle.checkCollision(Temp.Player)) { //Collision
-                Temp.Obstacles.remove(Obstacle, true, true);
+                Temp.GameOver = true;
             }
         });
 
         //======================================================================
         // Flag Check
         //======================================================================
+        if(this.GameOver &&
+            !this.PlayingGameOver) 
+        {
+            this.PlayingGameOver = true;
+        }
     }
 
     spawnObstacle() {

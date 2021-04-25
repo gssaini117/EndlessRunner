@@ -113,12 +113,14 @@ class Play extends Phaser.Scene {
     }
 
     update() {
+        let gameSpeed = 4 + Math.floor(this.Time / 10);
         //======================================================================
         // Updating stats
         //======================================================================
+        
         if(!this.GameOver) {
             //Updating background.
-            this.background.tilePositionX += 4;
+            this.background.tilePositionX += gameSpeed;
 
             //Updating player
             this.Player.update();
@@ -153,7 +155,7 @@ class Play extends Phaser.Scene {
         
         //Updating obstacle positions + checking collisions.
         this.Obstacles.getChildren().forEach(function(Obstacle) {
-            Obstacle.update(); //Update
+            Obstacle.update(gameSpeed); //Update
 
             if(Obstacle.checkCollision(Temp.Player)) { //Collision
                 Temp.GameOver = true;
@@ -176,10 +178,9 @@ class Play extends Phaser.Scene {
         let texture = '';
         let AnimationID = '';
         let isAnimated = false;
-        let selection = Math.floor(Math.random() * 6);
 
         //Selecting obstacle texture.
-        switch(selection) { // 0 to 5
+        switch(Math.floor(Math.random() * 6)) { // 0 to 5
             case 0: // Crate
                 texture = 'Crate';
                 break;
@@ -209,7 +210,7 @@ class Play extends Phaser.Scene {
         let obstacle = new Obstacle (this, game.config.width*1.2, 
             200 + ((lane - 1) * 125),
             texture, 0, lane,
-            4
+            4 + Math.floor(this.Time / 10)
         ).setOrigin(0.5, 0.5).setDepth(lane);
 
         if(isAnimated) { //Checking for animation

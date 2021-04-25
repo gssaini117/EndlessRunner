@@ -23,10 +23,10 @@ class Obstacle extends Phaser.GameObjects.Sprite {
     }
 
 
-    update() {
+    update(speed) {
         //Continuously move to the left.
         if(!this.scene.GameOver) {
-            this.x -= this.movement_Speed;
+            this.x -= speed;
         }
     }
 

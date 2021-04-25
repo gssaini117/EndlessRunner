@@ -2,7 +2,7 @@ let config = {
     type: Phaser.AUTO,
     width: 1024 , //Same as background dimensions.
     height: 576, //Same as background dimensions.
-    scene: [Menu, Play, HowTo, GameOver, Credits],
+    scene: [Play],
     scale: {
       parent: 'mygame',
       mode: Phaser.Scale.FIT,

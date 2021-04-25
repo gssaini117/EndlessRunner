@@ -6,8 +6,9 @@ class Player extends phaser.gameObjects {
         //Procedural fields.
         //none atm.
 
-        //Hard-coded fields.
+        //Class fields
         this.lane = 2; //Starting lane
+        this.DEATH_THRESHHOLD = 50 + this.width/2; //Max left pos.
 
         //Adding object to scene.
         scene.add.existing(this);
@@ -15,8 +16,21 @@ class Player extends phaser.gameObjects {
 
 
     update() {
-        //Make sure the player's Y matches the lane it's in.
+        //Detecting inputs.
+        if(Phaser.Input.Keyboard.JustDown(keyW) &&
+            this.lane < 3) 
+        {
+            this.lane++;
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyS) &&
+            this.lane > 1) 
+        {
+            this.lane--;
+        }
+
+        //Updating the player's Y matches the lane they're in.
         this.y = this.lane //multiply by the lane sizes;
+
     }
 
     //Returns true if this is intersecting with obj2.
@@ -31,6 +45,15 @@ class Player extends phaser.gameObjects {
         if(distX < (this.width + obj2.width)/2 &&
             this.lane == obj2.lane)
         {
+            return true;
+        }
+        return false;
+    }
+
+    //Returns true if too far to the left.
+    //Returns false otherwise.
+    checkDied() {
+        if(this.x < DEATH_THRESHHOLD) {
             return true;
         }
         return false;

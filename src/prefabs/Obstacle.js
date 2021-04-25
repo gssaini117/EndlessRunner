@@ -36,7 +36,7 @@ class Obstacle extends Phaser.GameObjects.Sprite {
     //Object 2 is assumed to always be the player.
     checkCollision(obj2) {
         //Getting x distance apart.
-        let distX = Math.abs(this.x - obj2.x);
+        let distX = Math.abs(this.x - obj2.x) + 80;
 
         //If the distance apart is less than their hitbox AND
         //  the 2 objects are in the same lane.

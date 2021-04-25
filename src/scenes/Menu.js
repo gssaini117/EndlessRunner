@@ -6,7 +6,6 @@ class Menu extends Phaser.Scene {
     preload() {
         // load background
         this.load.image('menuBackground', './assets/menu_Main.png');
-
     }
 
     create() {
@@ -18,11 +17,19 @@ class Menu extends Phaser.Scene {
 
         // define keys
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyH = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
+        keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
     }
 
     update() {
          if (Phaser.Input.Keyboard.JustDown(keySpace)) {
              this.scene.start('Play');
+         }
+         if (Phaser.Input.Keyboard.JustDown(keyH)) {
+             this.scene.start('HowTo');
+         }
+         if (Phaser.Input.Keyboard.JustDown(keyC)) {
+             this.scene.start('Credits');
          }
     }
 }

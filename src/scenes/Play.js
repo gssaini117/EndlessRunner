@@ -169,6 +169,9 @@ class Play extends Phaser.Scene {
             !this.PlayingGameOver) 
         {
             this.PlayingGameOver = true;
+            if(this.Time > highScore) {
+                highScore = this.Time;
+            }
             this.scene.start('GameOver');
         }
     }

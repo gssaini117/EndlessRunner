@@ -113,7 +113,7 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        let gameSpeed = 4 + Math.floor(this.Time / 10);
+        let gameSpeed = 4 + this.Time / 20;
         //======================================================================
         // Updating stats
         //======================================================================
@@ -144,7 +144,7 @@ class Play extends Phaser.Scene {
                 this.SpawnCooldown = true;
                 setTimeout(() => { //Delaying spawn.
                     this.spawnObstacle();
-                }, this.BASE_SPAWN_RATE);
+                }, this.BASE_SPAWN_RATE - (this.Time * 20));
             }
         }
 
@@ -169,6 +169,7 @@ class Play extends Phaser.Scene {
             !this.PlayingGameOver) 
         {
             this.PlayingGameOver = true;
+            this.scene.start('GameOver');
         }
     }
 

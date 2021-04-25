@@ -17,12 +17,12 @@ class Menu extends Phaser.Scene {
         // show menu text
 
         // define keys
-        keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.Keycodes.SPACE);
+        keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
 
     update() {
          if (Phaser.Input.Keyboard.JustDown(keySpace)) {
-             this.scene.start('playScene');
+             this.scene.start('Play');
          }
     }
 }

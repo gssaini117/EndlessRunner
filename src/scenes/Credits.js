@@ -4,7 +4,7 @@ class Credits extends Phaser.Scene {
     }
 
     preload() {
-
+        
     }
 
     create() {

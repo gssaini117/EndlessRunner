@@ -6,7 +6,7 @@ class Play extends Phaser.Scene {
 
     preload() {
         //Loading image/tile sprites.
-        this.load.image('Background1', './assets/background1.png');
+        this.load.image('Background1', './assets/Background1.png');
         this.load.image('Background2', './assets/background2.png');
         this.load.image('Crate', './assets/obstacle_Crate.png');
         this.load.image('Bin', './assets/obstacle_Bin.png');
@@ -14,13 +14,13 @@ class Play extends Phaser.Scene {
 
         //Loading spritesheets.
         this.load.spritesheet('Player', './assets/player.png',
-            {frameWidth: 128, frameHeight: 256, startFrame: 0, endFrame: 5}
+            {frameWidth: 141.6666666666666, frameHeight: 256, startFrame: 0, endFrame: 5}
         );
         this.load.spritesheet('Zombie_Chibi', './assets/zombie_Chibi.png',
             {frameWidth: 128, frameHeight: 256, startFrame: 0, endFrame: 5}
         );
         this.load.spritesheet('Zombie_Scary', './assets/zombie_Scary.png',
-            {frameWidth: 128, frameHeight: 256, startFrame: 0, endFrame: 7}
+            {frameWidth: 137.5, frameHeight: 256, startFrame: 0, endFrame: 7}
         );
         this.load.spritesheet('Zombie_Hand', './assets/zombie_Hand.png',
             {frameWidth: 256, frameHeight: 256, startFrame: 0, endFrame: 5}
@@ -38,7 +38,7 @@ class Play extends Phaser.Scene {
 
         //Animation config
         this.anims.create({ //Player
-            key: 'Player_Loop', frameRate: 8, repeat: -1,
+            key: 'Player_Loop', frameRate: 9, repeat: -1,
             frames: this.anims.generateFrameNumbers('Player', { start: 0, end: 5, first: 0}),
         });
         this.anims.create({ //Zombie-Chibi
@@ -171,7 +171,9 @@ class Play extends Phaser.Scene {
             this.PlayingGameOver = true;
             if(this.Time > highScore) {
                 highScore = this.Time;
+                newHighScore = true;
             }
+            score = this.Time;
             this.scene.start('GameOver');
         }
     }

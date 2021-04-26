@@ -12,7 +12,9 @@ let config = {
 
 let game = new Phaser.Game(config);
 
+let score = 0;
 let highScore = 0;
+let newHighScore = false;
 
 // reserve keyboard vars
 let keyW, keyS, keySpace, keyC, keyH, keyEsc;

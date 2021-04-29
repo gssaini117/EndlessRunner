@@ -38,7 +38,11 @@ class GameOver extends Phaser.Scene {
         let Text = 'Final score: ' + score;
         if(newHighScore) {
             Text += '\t New Highscore!';
+            highScore = score;
             newHighScore = false;
+        }
+        else {
+            Text += '\t High Score: ' + highScore;
         }
         this.Text_Stats = this.add.text(
             this.Text_Box.x,

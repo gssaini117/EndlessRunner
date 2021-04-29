@@ -144,7 +144,7 @@ class Play extends Phaser.Scene {
                 this.SpawnCooldown = true;
                 setTimeout(() => { //Delaying spawn.
                     this.spawnObstacle();
-                }, this.BASE_SPAWN_RATE * (1 - gameSpeed/10));
+                },  this.BASE_SPAWN_RATE * (1 - gameSpeed/10));
             }
         }
 

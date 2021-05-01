@@ -64,7 +64,7 @@ class Play extends Phaser.Scene {
         this.Obstacles = new Phaser.GameObjects.Group(this);
         // Spawning obstacles.
         this.SpawnCooldown = false; // Can't spawn obstacles if true.
-        this.BASE_SPAWN_RATE = 2000; //Fixed base spawn delay in seconds.
+        this.BASE_SPAWN_RATE = 2500; //Fixed base spawn delay in seconds.
 
         // Timer / Score
         this.Time = 0; // How long the player has survived for.
@@ -113,7 +113,7 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        let gameSpeed = 2 + this.Time / 20;
+        let gameSpeed = 8 + this.Time / 20;
         //======================================================================
         // Updating stats
         //======================================================================
@@ -137,6 +137,12 @@ class Play extends Phaser.Scene {
                 }, 1000);
             }
 
+            // Spawn Timer
+            let spawnDelay = this.BASE_SPAWN_RATE * (1 - gameSpeed/10);
+            if (spawnDelay < 600)
+                spawnDelay = 600;
+            console.log(spawnDelay);
+
             //Spawning obstacle.
             if(!this.SpawnCooldown &&
                 !this.GameOver    
@@ -144,7 +150,7 @@ class Play extends Phaser.Scene {
                 this.SpawnCooldown = true;
                 setTimeout(() => { //Delaying spawn.
                     this.spawnObstacle();
-                },  this.BASE_SPAWN_RATE * (1 - gameSpeed/10));
+                }, spawnDelay);
             }
         }
 

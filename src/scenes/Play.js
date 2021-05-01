@@ -6,7 +6,7 @@ class Play extends Phaser.Scene {
 
     preload() {
         //Loading image/tile sprites.
-        this.load.image('Background1', './assets/Background1.png');
+        this.load.image('Background1', './assets/background1.png');
         this.load.image('Background2', './assets/background2.png');
         this.load.image('Crate', './assets/obstacle_Crate.png');
         this.load.image('Bin', './assets/obstacle_Bin.png');
@@ -118,7 +118,7 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        let gameSpeed = 6 + this.Time / 20;
+        let gameSpeed = 4 + this.Time / 20;
         //======================================================================
         // Updating stats
         //======================================================================

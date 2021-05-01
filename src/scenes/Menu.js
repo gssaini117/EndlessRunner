@@ -9,6 +9,7 @@ class Menu extends Phaser.Scene {
 
         // load audio
         this.load.audio('Music_Play', './assets/ZombieLimboTrack.mp3');
+        this.load.image('menuBackground', './assets/menu_Main.png');
     }
 
     create() {

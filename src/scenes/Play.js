@@ -55,7 +55,8 @@ class Play extends Phaser.Scene {
         });
 
         //Sound config
-        // None yet
+        this.Music = this.sound.add('Music_Play');
+        let Music_Config = {mute: false, volume: 0.5, loop: true, delay: 0};
 
         //======================================================================
         // Technical
@@ -107,13 +108,17 @@ class Play extends Phaser.Scene {
         //======================================================================
         // Starting game
         //======================================================================
+        //Spawning player
         this.Player = new Player(
             this, game.config.width/4, 325, 'Player', 0,
         ).setDepth(5).setOrigin(0.5, 0.5).play('Player_Loop');
+
+        //Playing music
+        this.Music.play(Music_Config);
     }
 
     update() {
-        let gameSpeed = 8 + this.Time / 20;
+        let gameSpeed = 6 + this.Time / 20;
         //======================================================================
         // Updating stats
         //======================================================================
@@ -141,7 +146,6 @@ class Play extends Phaser.Scene {
             let spawnDelay = this.BASE_SPAWN_RATE * (1 - gameSpeed/10);
             if (spawnDelay < 600)
                 spawnDelay = 600;
-            console.log(spawnDelay);
 
             //Spawning obstacle.
             if(!this.SpawnCooldown &&
@@ -175,6 +179,7 @@ class Play extends Phaser.Scene {
             !this.PlayingGameOver) 
         {
             this.PlayingGameOver = true;
+            this.Music.stop();
             if(this.Time > highScore) {
                 highScore = this.Time;
                 newHighScore = true;

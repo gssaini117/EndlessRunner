@@ -58,6 +58,9 @@ class Play extends Phaser.Scene {
         this.Music = this.sound.add('Music_Play');
         let Music_Config = {mute: false, volume: 0.5, loop: true, delay: 0};
 
+        this.Sfx_Zombie = this.sound.add('Sfx_Zombie');
+        this.Zombie_Config = {mute: false, volume: 1, loop: false, delay: 0};
+
         //======================================================================
         // Technical
         //======================================================================
@@ -216,6 +219,7 @@ class Play extends Phaser.Scene {
                 texture = 'Zombie_Scary';
                 AnimationID = 'Scary_Loop';
                 isAnimated = true;  
+                this.Sfx_Zombie.play(this.Zombie_Config);
                 break;
             case 5: // Hand
                 texture = 'Zombie_Hand';

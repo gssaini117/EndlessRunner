@@ -118,7 +118,7 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        let gameSpeed = 4 + this.Time / 20;
+        let gameSpeed = 4 + this.Time / 15;
         //======================================================================
         // Updating stats
         //======================================================================

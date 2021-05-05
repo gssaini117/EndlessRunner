@@ -16,6 +16,13 @@ class GameOver extends Phaser.Scene {
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyEsc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
+        //Sound config
+        this.Select = this.sound.add('Sfx_Select');
+        this.Select_Config = {mute: false, volume: 0.5, loop: false, delay: 0};
+
+        this.Gameover = this.sound.add('Sfx_Death');
+        this.Gameover_Config = {mute: false, volume: 0.5, loop: false, delay: 0};
+
         //======================================================================
         // Gui
         //======================================================================
@@ -50,13 +57,19 @@ class GameOver extends Phaser.Scene {
             Text, 
             textConfig
         ).setDepth(10).setOrigin(0.5, 0);
+
+        this.Gameover.play(this.Gameover_Config);
     }
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keySpace)) {
+            this.Select.play(this.Select_Config);
+            this.Gameover.stop();
             this.scene.start('Play');
         }
         if (Phaser.Input.Keyboard.JustDown(keyEsc)) {
+            this.Select.play(this.Select_Config);
+            this.Gameover.stop();
             this.scene.start('Menu');
         }
     }

@@ -1,3 +1,16 @@
+/*
+Zombie Limbo: 5/4/21
+
+Collaborators:
+Gurkirat Saini
+Ethan Erh
+Mengya Qiu
+
+Creative Tilt:
+We made our own art, music, and sounds to fit the theme of the game.
+We also added a high-score functionality.
+*/
+
 let config = {
     type: Phaser.AUTO,
     width: 1024 , //Same as background dimensions.
